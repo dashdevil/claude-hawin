@@ -119,10 +119,10 @@ cmd_push() {
     $VALIDATOR --packages-dir "$SCRIPT_DIR/$LOCAL_PKG"
 
     echo "=== Backup auf HA ==="
-    ssh "$HA_HOST" "cp $HA_PKG_DIR/$file $HA_PKG_DIR/$file.bak 2>/dev/null || true"
+    ssh "$HA_HOST" "cp '$HA_PKG_DIR/$file' '$HA_PKG_DIR/$file.bak' 2>/dev/null || true"
 
     echo "=== Push: $file -> HA ==="
-    ssh "$HA_HOST" "mkdir -p $(dirname $HA_PKG_DIR/$file)"
+    ssh "$HA_HOST" "mkdir -p '$(dirname "$HA_PKG_DIR/$file")'"
     scp "$SCRIPT_DIR/$LOCAL_PKG/$file" "$HA_HOST:$HA_PKG_DIR/$file"
 
     echo ""
@@ -141,7 +141,7 @@ cmd_push_all() {
     # Rekursiv alle Packages inkl. Unterordner pushen
     find "$SCRIPT_DIR/$LOCAL_PKG" -name '*.yaml' -type f | while read -r local_file; do
         local rel_path="${local_file#$SCRIPT_DIR/$LOCAL_PKG/}"
-        ssh "$HA_HOST" "mkdir -p $(dirname $HA_PKG_DIR/$rel_path)"
+        ssh "$HA_HOST" "mkdir -p '$(dirname "$HA_PKG_DIR/$rel_path")'"
         scp "$local_file" "$HA_HOST:$HA_PKG_DIR/$rel_path"
     done
 
