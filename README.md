@@ -2,7 +2,7 @@
 
 Dein Smart Home per natuerlicher Sprache verwalten -- mit [Claude Code](https://docs.anthropic.com/en/docs/claude-code), der Kommandozeilen-KI von Anthropic.
 
-> Sage Claude was du willst. Er schreibt das YAML, validiert es, deployt es auf deinen HA-Server und prueft ob alles laeuft. In unter einer Minute.
+> Sage Claude was du willst. Er schreibt das YAML, validiert es, deployt es auf deinen HA-Server und prueft ob alles laeuft. 
 
 ## Features
 
