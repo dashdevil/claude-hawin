@@ -1,0 +1,35 @@
+# /config/packages/knx/licht/beispiel_schalten.yaml
+# ============================================================================
+# BEISPIEL: KNX Licht Schaltaktoren
+#
+# Pattern: Jedes Licht hat eine Schalt-GA + Rueckmelde-GA
+#   address:       = Schalten (HA -> KNX)
+#   state_address: = Status-Rueckmeldung (KNX -> HA)
+#
+# Die GA-Adressen sind projektspezifisch -- lies sie aus deinem ETS-Export!
+#
+# ANWEISUNG AN CLAUDE:
+#   "Lies meine KNX-GA-CSV. Erstelle alle Licht-Schaltaktoren
+#    als HA light-Entities. Jedes Licht braucht address (Schalten)
+#    und state_address (Rueckmeldung)."
+# ============================================================================
+
+knx:
+  light:
+    ##### EG #####
+    - name: "EG Kueche Deckenlampe"
+      address: "x/x/x"           # TODO: GA Schalten aus ETS-Export
+      state_address: "x/x/x"     # TODO: GA Rueckmeldung aus ETS-Export
+    - name: "EG Flur Deckenlampe"
+      address: "x/x/x"           # TODO: GA Schalten
+      state_address: "x/x/x"     # TODO: GA Rueckmeldung
+
+    ##### OG #####
+    - name: "OG Bad Spiegelschrank"
+      address: "x/x/x"           # TODO: GA Schalten
+      state_address: "x/x/x"     # TODO: GA Rueckmeldung
+
+    ##### Aussen #####
+    - name: "Aussen Einfahrt Wandlampe"
+      address: "x/x/x"           # TODO: GA Schalten
+      state_address: "x/x/x"     # TODO: GA Rueckmeldung

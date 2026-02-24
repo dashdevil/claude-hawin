@@ -1,0 +1,39 @@
+# packages/beispiel_alarm.yaml
+# Beispiel: Kritische Alarm-Benachrichtigungen (Wasser, Feuer)
+#
+# ANWEISUNG AN CLAUDE:
+#   "Erstelle ein alarm.yaml fuer meine Wassermelder in Kueche, Bad und Keller.
+#    Benachrichtige mich und meinen Partner per kritischem Push."
+
+automation:
+  - id: alarm_kueche_wassermelder
+    alias: "Alarm: Kueche - Wassermelder"
+    triggers:
+      - trigger: state
+        entity_id: binary_sensor.kueche_wasseralarm    # TODO: Dein Sensor
+        to: 'on'
+    actions:
+      - action: notify.mobile_app_dein_handy            # TODO: Dein Target
+        data:
+          title: Alarm
+          message: "Wassermelder Kueche!"
+          data:
+            push:
+              sound: { name: default, critical: 1, volume: 1 }
+    mode: single
+
+  - id: alarm_haus_feuermelder
+    alias: "Alarm: Haus - Feuermelder"
+    triggers:
+      - trigger: state
+        entity_id: binary_sensor.feueralarm             # TODO: Dein Sensor
+        to: 'on'
+    actions:
+      - action: notify.mobile_app_dein_handy            # TODO: Dein Target
+        data:
+          title: FEUERALARM
+          message: "Feueralarm im Haus!"
+          data:
+            push:
+              sound: { name: default, critical: 1, volume: 1 }
+    mode: single

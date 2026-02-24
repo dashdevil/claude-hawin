@@ -1,0 +1,63 @@
+# packages/beispiel_beleuchtung.yaml
+# Beispiel: Aussenbeleuchtung mit Daemmerung, Praesenz und Failsafe
+#
+# Zeigt drei Automations-Patterns:
+#   1. numeric_state Trigger (Lux-Schwelle)
+#   2. Zeitgesteuert + Bedingungen
+#   3. Failsafe (verhindert vergessenes Licht)
+#
+# ANWEISUNG AN CLAUDE:
+#   "Erstelle ein beleuchtung.yaml: Gartenbeleuchtung an bei Daemmerung
+#    wenn jemand zuhause ist, aus ab 23 Uhr, Failsafe bei Tageslicht."
+
+automation:
+  - id: beleuchtung_garten_daemmerung_ein
+    alias: "Beleuchtung: Garten - Daemmerung ein"
+    triggers:
+      - trigger: numeric_state
+        entity_id: sensor.daemmerung                 # TODO: Lux-Sensor
+        below: 50
+    conditions:
+      - condition: state
+        entity_id: binary_sensor.jemand_zuhause      # TODO: Praesenz-Gruppe
+        state: 'on'
+        for: { minutes: 15 }
+    actions:
+      - action: light.turn_on
+        target:
+          entity_id: light.gartenbeleuchtung         # TODO: Licht-Entity
+    mode: single
+
+  - id: beleuchtung_garten_nacht_aus
+    alias: "Beleuchtung: Garten - Nacht aus"
+    triggers:
+      - trigger: time
+        at: "23:00:00"
+    conditions:
+      - condition: state
+        entity_id: light.gartenbeleuchtung           # TODO: Licht-Entity
+        state: 'on'
+    actions:
+      - action: light.turn_off
+        target:
+          entity_id: light.gartenbeleuchtung         # TODO: Licht-Entity
+    mode: single
+
+  - id: beleuchtung_aussen_failsafe
+    alias: "Beleuchtung: Aussen - Failsafe Tag"
+    description: "Stuendlich: wenn hell (>500 lux), alle Aussenleuchten aus"
+    triggers:
+      - trigger: time_pattern
+        hours: /1
+    conditions:
+      - condition: numeric_state
+        entity_id: sensor.daemmerung                 # TODO: Lux-Sensor
+        above: 500
+    actions:
+      - action: light.turn_off
+        target:
+          entity_id:                                 # TODO: Alle Aussen-Entities
+            - light.gartenbeleuchtung
+            # - light.einfahrt
+            # - light.terrasse
+    mode: single

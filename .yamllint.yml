@@ -1,0 +1,28 @@
+# yamllint-Konfiguration fuer Home Assistant Packages
+# Optimiert fuer HA-YAML (erlaubt truthy-Werte, lange Zeilen, etc.)
+---
+extends: default
+
+rules:
+  line-length: disable
+  truthy:
+    allowed-values: ['true', 'false', 'on', 'off', 'yes', 'no']
+  indentation:
+    spaces: 2
+    indent-sequences: true
+  empty-values:
+    forbid-in-block-mappings: false
+    forbid-in-flow-mappings: false
+  document-start: disable
+  comments:
+    min-spaces-from-content: 1
+  braces:
+    max-spaces-inside: 1
+  brackets:
+    max-spaces-inside: 1
+  comments-indentation: disable
+
+ignore: |
+  .git/
+  backups/
+  *.bak

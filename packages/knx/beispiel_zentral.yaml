@@ -1,0 +1,35 @@
+# /config/packages/knx/beispiel_zentral.yaml
+# ============================================================================
+# BEISPIEL: KNX Zentrale Schalter & Sensoren
+#
+# KNX-Packages enthalten NUR GA-Mappings (keine Automations-Logik).
+# Die Logik gehoert in separate Packages (z.B. beleuchtung.yaml).
+#
+# Die GA-Adressen sind projektspezifisch -- lies sie aus deinem ETS-Export!
+#
+# ANWEISUNG AN CLAUDE:
+#   "Lies meine KNX-GA-CSV und erstelle die zentralen Schalter
+#    und Sensoren als HA-Entities in knx/zentral.yaml."
+# ============================================================================
+
+knx:
+  # Zentrale Schalter (schaltbar via HA und KNX)
+  switch:
+    - name: "Tag / Nacht"
+      address: "x/x/x"           # TODO: GA aus ETS-Export
+      # state_address: "x/x/x"   # Optional: Rueckmeldung
+    - name: "Urlaub"
+      address: "x/x/x"           # TODO: GA aus ETS-Export
+      state_address: "x/x/x"     # TODO: GA aus ETS-Export
+
+  # Zentrale Sensoren (nur lesen)
+  binary_sensor:
+    - name: "Sommer / Winter"
+      state_address: "x/x/x"     # TODO: GA aus ETS-Export
+      sync_state: every 30        # Alle 30s den Status vom KNX-Bus lesen
+    - name: "Heizen / Kuehlen"
+      state_address: "x/x/x"     # TODO: GA aus ETS-Export
+      sync_state: every 30
+    - name: "Feueralarm"
+      state_address: "x/x/x"     # TODO: GA aus ETS-Export
+      sync_state: every 30

@@ -1,0 +1,35 @@
+# Claude Code (lokale Settings mit MCP-Tokens etc.)
+.claude/settings.local.json
+
+# Backups
+backups/
+*.bak
+*.backup
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+venv/
+.venv/
+
+# OS
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# IDE
+.vscode/
+.idea/
+
+# Logs & Temp
+*.log
+temp/
+tmp/
+
+# HA Secrets (falls versehentlich kopiert)
+secrets.yaml
+
+# KNX GA-Export (persoenliche Daten)
+KNX_group_addresses*.csv
